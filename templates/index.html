@@ -8,13 +8,13 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Сайт с прогнозом погоды в любой точке мира</h1>
+    <h1 class="text-center mb-4">Сайт с прогнозом погоды в любой точке мира и новостями туризма в России </h1>
 
     <form method="post" class="mb-4">
         <div class="form-group">
             <input type="text" name="city" class="form-control" placeholder="Введите город" required>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Узнать погоду</button>
+        <button type="submit" class="btn btn-primary btn-block">Узнать погоду и новости туризма</button>
     </form>
 
     <div class="result">
@@ -24,6 +24,24 @@
                     <h3 class="card-title">Погода в {{ weather['name'] }}</h3>
                     <p class="card-text">Температура: {{ weather['main']['temp'] }}°C</p>
                     <p class="card-text">Погода: {{ weather['weather'][0]['description'] }}</p>
+                </div>
+            </div>
+        {% elif error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        {% if news %}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Новости туризма</h3>
+                    <ul class="list-group">
+                        {% for article in news %}
+                            <li class="list-group-item">
+                                <a href="{{ article['url'] }}" class="card-link">{{ article['title'] }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         {% elif error %}
