@@ -17,7 +17,7 @@ def index():
 
 #в функции прописываем город, который мы будем вводить в форме
 def get_weather(city):
-   api_key = "ваш_ключ"
+   api_key = "d910ee490c508d67d15d77ec547f829d"
    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric" #адрес, по которомы мы будем отправлять запрос. Не забываем указывать f строку.
    response = requests.get(url) #для получения результата нам понадобится модуль requests
    return response.json() #прописываем формат возврата результата
