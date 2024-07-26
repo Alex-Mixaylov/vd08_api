@@ -19,7 +19,7 @@
 
     <div class="result">
         {% if weather %}
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     <h3 class="card-title">Погода в {{ weather['name'] }}</h3>
                     <p class="card-text">Температура: {{ weather['main']['temp'] }}°C</p>
@@ -31,8 +31,9 @@
                 {{ error }}
             </div>
         {% endif %}
+
         {% if news %}
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     <h3 class="card-title">Новости туризма</h3>
                     <ul class="list-group">
@@ -42,6 +43,20 @@
                             </li>
                         {% endfor %}
                     </ul>
+                </div>
+            </div>
+        {% elif error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        {% if quote %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Рандомная цитата</h3>
+                    <p class="card-text">Цитата: "{{ quote['content'] }}"</p>
+                    <p class="card-text">Автор: {{ quote['name'] }}</p>
                 </div>
             </div>
         {% elif error %}

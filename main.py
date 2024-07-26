@@ -7,12 +7,16 @@ app = Flask(__name__)
 def index():
     weather = None
     news = None
+    quote = None
     error = None
     if request.method == 'POST':
         city = request.form['city']
         weather, error = get_weather(city)
-        news, error = get_news()
-    return render_template("index.html", weather=weather, news=news, error=error)
+        if not error:
+            quote, error = get_random_quote()
+        if not error:
+            news, error = get_news()
+    return render_template("index.html", weather=weather, news=news, quote=quote, error=error)
 
 def get_weather(city):
     api_key = "d910ee490c508d67d15d77ec547f829d"
@@ -28,9 +32,30 @@ def get_news():
     url = f"https://newsapi.org/v2/everything?q=travel&language=ru&apiKey={api_key}"
     response = requests.get(url)
     if response.status_code == 200:
-        return response.json().get('articles', []), None
+        # Ограничиваем количество новостей до 7
+        articles = response.json().get('articles', [])
+        return articles[:7], None
     else:
         return None, "Произошла ошибка при получении новостей."
+
+def get_random_quote():
+    api_key = "f115209b4cmsh517b193399e84d0p164af3jsndbe9e171d02b"
+    url = "https://quotes15.p.rapidapi.com/quotes/random/"
+    querystring = {"language_code": "ru"}
+
+    headers = {
+        'x-rapidapi-host': "quotes15.p.rapidapi.com",
+        'x-rapidapi-key': api_key
+    }
+    response = requests.get(url, headers=headers, params=querystring)
+    if response.status_code == 200:
+        quote_data = response.json()
+        return {
+            "content": quote_data.get('content', 'No content available'),
+            "name": quote_data.get('originator', {}).get('name', 'Unknown')
+        }, None
+    else:
+        return None, "Произошла ошибка при получении цитаты."
 
 if __name__ == '__main__':
     app.run(debug=True)
