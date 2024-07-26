@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Собрался в отпуск? Узнай погодуи новости туризма в России</h1>
+    <h1 class="text-center mb-4">Собрался в отпуск?<br> Узнай погоду и новости туризма в России</h1>
 
     <!-- Форма для запроса города -->
     <form method="post" class="mb-4">
@@ -39,7 +39,7 @@
             <!-- Карточка с рандомной цитатой -->
             <div class="card mb-4">
                 <div class="card-body">
-                    <h3 class="card-title">Цитаты в дорогу:</h3>
+                    <h3 class="card-title">Цитата в дорогу:</h3>
                     <blockquote class="blockquote">
                         <p class="mb-0">"{{ quote['content'] }}"</p>
                         <footer class="blockquote-footer">{{ quote['name'] }}</footer>
@@ -57,7 +57,7 @@
             <!-- Карточка с новостями туризма -->
             <div class="card mb-4">
                 <div class="card-body">
-                    <h3 class="card-title">Новости туризма</h3>
+                    <h3 class="card-title">Новости туризма в России</h3>
                     <ul class="list-group">
                         {% for article in news %}
                             <li class="list-group-item">
